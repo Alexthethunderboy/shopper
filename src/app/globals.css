@@ -2,20 +2,260 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@media (prefers-color-scheme: dark) {
+@layer base {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    /* Main colors */
+    --background: 0 0% 100%;
+    --foreground: 240 10% 3.9%;
+
+    /* Modern accent colors */
+    --accent-blue: 217 91% 60%;
+    --accent-purple: 266 100% 64%;
+    --accent-pink: 330 81% 60%;
+    
+    /* Brand colors */
+    --brand: 230 84% 56%; /* Vibrant blue */
+    --brand-foreground: 0 0% 100%;
+    
+    /* Accent colors */
+    --accent-warm: 20 96% 70%; /* Coral */
+    --accent-cool: 173 80% 36%; /* Teal */
+
+    /* UI colors */
+    --card: 0 0% 100%;
+    --card-foreground: 240 10% 3.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 240 10% 3.9%;
+    
+    /* Primary - Now using brand blue */
+    --primary: 217 91% 60%;
+    --primary-foreground: 0 0% 98%;
+    
+    /* Secondary - Soft gray */
+    --secondary: 240 4.8% 95.9%;
+    --secondary-foreground: 240 5.9% 10%;
+    
+    /* Muted */
+    --muted: 240 4.8% 95.9%;
+    --muted-foreground: 240 3.8% 46.1%;
+    
+    /* System colors */
+    --accent: 240 4.8% 95.9%;
+    --accent-foreground: 240 5.9% 10%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+    --success: 142 76% 36%;
+    --success-foreground: 0 0% 100%;
+    
+    /* Border and input */
+    --border: 240 5.9% 90%;
+    --input: 240 5.9% 90%;
+    --ring: 217 91% 60%;
+    
+    --radius: 0.75rem;
+  }
+
+  .dark {
+    /* Main colors */
+    --background: 224 71% 4%;
+    --foreground: 213 31% 91%;
+    
+    /* Dark mode accent colors */
+    --accent-blue: 217 91% 60%;
+    --accent-purple: 266 100% 64%;
+    --accent-pink: 330 81% 60%;
+    
+    /* Brand colors remain consistent */
+    --brand: 230 84% 56%;
+    --brand-foreground: 0 0% 100%;
+    
+    /* Accent colors adjusted for dark mode */
+    --accent-warm: 20 96% 65%;
+    --accent-cool: 173 80% 40%;
+
+    /* UI colors */
+    --card: 224 71% 4%;
+    --card-foreground: 213 31% 91%;
+    --popover: 224 71% 4%;
+    --popover-foreground: 215 20.2% 65.1%;
+    
+    /* Primary */
+    --primary: 217 91% 60%;
+    --primary-foreground: 222.2 47.4% 11.2%;
+    
+    /* Secondary */
+    --secondary: 222.2 47.4% 11.2%;
+    --secondary-foreground: 215 20.2% 65.1%;
+    
+    /* Muted */
+    --muted: 223 47% 11%;
+    --muted-foreground: 215 20.2% 65.1%;
+    
+    /* System colors */
+    --accent: 216 34% 17%;
+    --accent-foreground: 210 40% 98%;
+    --destructive: 0 63% 31%;
+    --destructive-foreground: 210 40% 98%;
+    --success: 142 76% 36%;
+    --success-foreground: 0 0% 100%;
+    
+    /* Border and input */
+    --border: 216 34% 17%;
+    --input: 216 34% 17%;
+    --ring: 224 71% 4%;
   }
 }
 
-body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+@layer utilities {
+  .animate-fade-up {
+    animation: fade-up 0.5s ease-out forwards;
+  }
+
+  .animate-fade-down {
+    animation: fade-down 0.5s ease-out forwards;
+  }
+
+  .animate-fade-in {
+    animation: fade-in 0.5s ease-out forwards;
+  }
+
+  @keyframes fade-up {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes fade-down {
+    from {
+      opacity: 0;
+      transform: translateY(-20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes fade-in {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+}
+
+/* Add smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Add hover effect for interactive elements */
+@layer base {
+  button, a {
+    @apply transition-all duration-200;
+  }
+}
+
+/* Add focus styles */
+@layer base {
+  :focus-visible {
+    @apply outline-none ring-2 ring-primary ring-offset-2;
+  }
+}
+
+.hero-gradient {
+  background: linear-gradient(
+    to bottom,
+    hsla(var(--background) / 0.8) 0%,
+    hsla(var(--background) / 0.6) 50%,
+    hsla(var(--background) / 0.4) 100%
+  );
+}
+
+.gradient-text {
+  background: linear-gradient(
+    135deg, 
+    hsl(var(--accent-blue)) 0%, 
+    hsl(var(--accent-purple)) 50%, 
+    hsl(var(--accent-pink)) 100%
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.card-hover {
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.card-hover:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 24px -10px hsla(var(--accent-blue) / 0.3);
+}
+
+/* Add these new gradient variations */
+.gradient-warm {
+  background: linear-gradient(
+    135deg,
+    hsl(var(--accent-warm)) 0%,
+    hsl(var(--accent-pink)) 100%
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.gradient-cool {
+  background: linear-gradient(
+    135deg,
+    hsl(var(--accent-blue)) 0%,
+    hsl(var(--accent-cool)) 100%
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Add hover animations */
+.hover-lift {
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.hover-lift:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 24px -10px hsla(var(--accent-blue) / 0.3);
+}
+
+/* Add loading animations */
+.loading-shimmer {
+  background: linear-gradient(
+    90deg,
+    hsla(var(--muted) / 0.1) 25%,
+    hsla(var(--muted) / 0.2) 37%,
+    hsla(var(--muted) / 0.1) 63%
+  );
+  background-size: 400% 100%;
+  animation: shimmer 1.4s ease infinite;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0 50%;
+  }
 }
