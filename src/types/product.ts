@@ -1,10 +1,11 @@
 export interface Product {
-  id: string;
+  id: string | number;
   name: string;
-  description: string;
+  slug: string;
+  description?: string;
   price: number;
   image: string;
-  category: string;
+  category?: string;
   tags?: string[];
   variants?: ProductVariant[];
   stock?: number;

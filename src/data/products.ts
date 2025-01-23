@@ -1,7 +1,10 @@
-export const products = [
+import { Product } from '@/types/product';
+
+export const products: Product[] = [
   {
     id: '1',
     name: 'Classic White Sneakers',
+    slug: 'classic-white-sneakers',
     price: 89.99,
     image: '/images/products/sneakers-1.jpg',
     category: 'Men',
@@ -10,6 +13,7 @@ export const products = [
   {
     id: '2',
     name: 'Leather Crossbody Bag',
+    slug: 'leather-crossbody-bag',
     price: 129.99,
     image: '/images/products/bag-1.jpg',
     category: 'Accessories',
@@ -18,6 +22,7 @@ export const products = [
   {
     id: '3',
     name: 'Floral Summer Dress',
+    slug: 'floral-summer-dress',
     price: 79.99,
     image: '/images/products/dress-1.jpg',
     category: 'Women',
@@ -26,6 +31,7 @@ export const products = [
   {
     id: '4',
     name: 'Denim Jacket',
+    slug: 'denim-jacket',
     price: 119.99,
     image: '/images/products/jacket-1.jpg',
     category: 'Men',
@@ -34,6 +40,7 @@ export const products = [
   {
     id: '5',
     name: 'Gold Hoop Earrings',
+    slug: 'gold-hoop-earrings',
     price: 49.99,
     image: '/images/products/earrings-1.jpg',
     category: 'Accessories',
@@ -42,6 +49,7 @@ export const products = [
   {
     id: '6',
     name: 'Silk Blouse',
+    slug: 'silk-blouse',
     price: 89.99,
     image: '/images/products/blouse-1.jpg',
     category: 'Women',
@@ -50,6 +58,7 @@ export const products = [
   {
     id: '7',
     name: 'Leather Wallet',
+    slug: 'leather-wallet',
     price: 59.99,
     image: '/images/products/wallet-1.jpg',
     category: 'Accessories',
@@ -58,6 +67,7 @@ export const products = [
   {
     id: '8',
     name: 'Casual Linen Shirt',
+    slug: 'casual-linen-shirt',
     price: 69.99,
     image: '/images/products/shirt-1.jpg',
     category: 'Men',

@@ -4,17 +4,10 @@ import { motion } from 'framer-motion';
 import Link from 'next/link';
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
-import { useCart, CartProduct } from '@/hooks/use-cart';
+import { useCart } from '@/hooks/use-cart';
 import { toast } from 'sonner';
 import { ShoppingCart } from 'lucide-react';
-
-interface Product {
-  id: string;
-  name: string;
-  price: number;
-  image: string;
-  category: string;
-}
+import { type Product } from '@/types/product';
 
 interface ProductCardProps {
   product: Product;
@@ -24,7 +17,7 @@ export function ProductCard({ product }: ProductCardProps) {
   const { addItem } = useCart();
 
   const handleAddToCart = () => {
-    addItem(product as CartProduct);
+    addItem({ ...product, quantity: 1 });
     toast.success(`${product.name} added to cart`);
   };
 
