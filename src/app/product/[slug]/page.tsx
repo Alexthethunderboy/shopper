@@ -13,13 +13,12 @@ async function getProduct(slug: string): Promise<Product | null> {
   }
 }
 
-interface ProductPageProps {
-  params: {
-    slug: string
-  }
+type Props = {
+  params: { slug: string }
+  searchParams: { [key: string]: string | string[] | undefined }
 }
 
-export default async function ProductPage({ params }: ProductPageProps) {
+export default async function ProductPage({ params, searchParams }: Props) {
   if (!params.slug) {
     notFound()
   }
