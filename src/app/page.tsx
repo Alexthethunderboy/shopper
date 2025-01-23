@@ -4,10 +4,10 @@ import { useEffect, useState } from 'react';
 import Image from "next/image";
 import Link from "next/link";
 import { motion } from 'framer-motion';
-import { Button } from '@/components/ui/button';
 import { Carousel } from '@/components/ui/carousel';
 import { FeaturedSection } from '@/components/sections/featured-section';
 import { products } from '@/data/products';
+import { Button } from '@/components/ui/button';
 
 const heroImages = [
   { 

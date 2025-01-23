@@ -2,7 +2,6 @@
 
 import Image from 'next/image'
 import { Minus, Plus, ShoppingCart } from 'lucide-react'
-import { Button } from '@/components/ui/button'
 import {
   Card,
   CardContent,
@@ -10,6 +9,7 @@ import {
 import { formatPrice } from '@/lib/utils'
 import { motion } from 'framer-motion'
 import { Product } from '@/types/product'
+import { Button } from '@/components/ui/button';
 
 interface ProductDetailsProps {
   product: Product

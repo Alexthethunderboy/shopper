@@ -3,7 +3,6 @@
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 import Image from 'next/image';
-import { Button } from '@/components/ui/button';
 import { useCart } from '@/hooks/use-cart';
 import { toast } from 'sonner';
 import { ShoppingCart } from 'lucide-react';
