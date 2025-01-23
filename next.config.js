@@ -1,23 +1,24 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  reactStrictMode: true,
   images: {
-    domains: ['localhost', 'res.cloudinary.com'],
-    formats: ['image/avif', 'image/webp'],
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: '**',
+      },
+    ],
   },
-  eslint: {
-    // Don't run ESLint during builds (you can still run it manually)
-    ignoreDuringBuilds: true,
+  experimental: {
+    optimizeCss: true,
   },
   typescript: {
-    // Don't run type checking during builds (you can still run it manually)
-    ignoreBuildErrors: true,
+    // Dangerously allow production builds to successfully complete even if your project has type errors
+    ignoreBuildErrors: false,
   },
-  webpack: (config) => {
-    config.resolve.alias = {
-      ...config.resolve.alias,
-      '@': `${__dirname}/src`,
-    };
-    return config;
+  eslint: {
+    // Warning: This allows production builds to successfully complete even if your project has ESLint errors
+    ignoreDuringBuilds: false,
   },
 }
 

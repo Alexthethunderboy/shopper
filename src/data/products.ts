@@ -94,4 +94,16 @@ export const categories = [
     href: '/category/accessories',
     description: 'Complete your look with our premium accessories'
   }
-]; 
+];
+
+export const featuredProducts = [
+  {
+    id: 1,
+    name: "Classic White Sneakers",
+    slug: "classic-white-sneakers",
+    price: 89.99,
+    image: "/product-sneakers.jpg",
+    description: "Comfortable and stylish sneakers perfect for everyday wear."
+  },
+  // ... existing product data ...
+] as const; 

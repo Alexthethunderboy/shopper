@@ -1,21 +1,38 @@
 import { NextResponse } from 'next/server';
 import Stripe from 'stripe';
+import { CartProduct } from '@/types/product';
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
+if (!process.env.STRIPE_SECRET_KEY) {
+  throw new Error('STRIPE_SECRET_KEY is not set');
+}
+
+if (!process.env.NEXT_PUBLIC_URL) {
+  throw new Error('NEXT_PUBLIC_URL is not set');
+}
+
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
   apiVersion: '2023-10-16',
 });
 
 export async function POST(request: Request) {
   try {
     const body = await request.json();
-    const { items } = body;
+    const { items } = body as { items: CartProduct[] };
 
-    const lineItems = items.map((item: any) => ({
+    if (!Array.isArray(items)) {
+      return NextResponse.json(
+        { error: 'Invalid items format' },
+        { status: 400 }
+      );
+    }
+
+    const lineItems = items.map((item) => ({
       price_data: {
         currency: 'usd',
         product_data: {
           name: item.name,
           images: [item.image],
+          description: item.description,
         },
         unit_amount: Math.round(item.price * 100),
       },

@@ -14,14 +14,9 @@ import {
 } from '@/components/ui/command';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
+import { type Product } from '@/types/product';
 
-interface SearchResult {
-  id: string;
-  name: string;
-  price: number;
-  image: string;
-  category: string;
-}
+type SearchResult = Pick<Product, 'id' | 'name' | 'price' | 'image' | 'category' | 'slug'>;
 
 export function SearchBar() {
   const [open, setOpen] = useState(false);

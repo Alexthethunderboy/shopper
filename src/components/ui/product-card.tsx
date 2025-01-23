@@ -8,12 +8,15 @@ import { useCart } from '@/hooks/use-cart';
 import { toast } from 'sonner';
 import { ShoppingCart } from 'lucide-react';
 import { type Product } from '@/types/product';
+import { Card, CardHeader } from '@/components/ui/card';
+import { Badge } from '@/components/ui/badge';
 
 interface ProductCardProps {
   product: Product;
+  className?: string;
 }
 
-export function ProductCard({ product }: ProductCardProps) {
+export function ProductCard({ product, className }: ProductCardProps) {
   const { addItem } = useCart();
 
   const handleAddToCart = () => {
@@ -22,39 +25,29 @@ export function ProductCard({ product }: ProductCardProps) {
   };
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      className="group relative bg-card rounded-xl overflow-hidden border card-hover"
-    >
-      <Link href={`/products/${product.id}`} className="block aspect-square relative">
-        <Image
-          src={product.image}
-          alt={product.name}
-          fill
-          className="object-cover transition-transform duration-300 group-hover:scale-105"
-        />
-        <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity" />
-      </Link>
-      <div className="p-4">
-        <div className="mb-2">
-          <p className="text-sm text-muted-foreground">{product.category}</p>
-          <h3 className="font-semibold truncate hover:text-primary transition-colors">
-            <Link href={`/products/${product.id}`}>{product.name}</Link>
-          </h3>
+    <Link href={`/product/${product.slug}`}>
+      <Card className={className}>
+        <div className="aspect-square relative overflow-hidden rounded-t-lg">
+          <Image
+            src={product.image}
+            alt={product.name}
+            fill
+            className="object-cover transition-transform hover:scale-105"
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+          />
         </div>
-        <div className="flex items-center justify-between">
-          <p className="font-bold text-lg gradient-text">${product.price.toFixed(2)}</p>
-          <Button
-            size="sm"
-            onClick={handleAddToCart}
-            className="sm:opacity-0 sm:group-hover:opacity-100 transition-all duration-300 transform translate-y-2 group-hover:translate-y-0"
-          >
-            <ShoppingCart className="h-4 w-4 sm:mr-2" />
-            <span className="hidden sm:inline">Add to Cart</span>
-          </Button>
-        </div>
-      </div>
-    </motion.div>
+        <CardHeader>
+          <div className="flex items-start justify-between">
+            <div className="space-y-1.5">
+              <Badge variant="secondary">{product.category}</Badge>
+              <h3 className="font-medium leading-none">{product.name}</h3>
+              <p className="text-sm text-muted-foreground">
+                ${product.price.toFixed(2)}
+              </p>
+            </div>
+          </div>
+        </CardHeader>
+      </Card>
+    </Link>
   );
 } 
