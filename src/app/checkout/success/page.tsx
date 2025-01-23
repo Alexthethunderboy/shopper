@@ -3,7 +3,7 @@
 import { useEffect } from 'react';
 import Link from 'next/link';
 import { CheckCircle } from 'lucide-react';
-import { Button } from '@/components/ui/button';
+import { Button } from '@/components/Button';
 import { useCart } from '@/lib/store/cart';
 import { ScrollAnimation } from '@/components/ui/scroll-animation';
 

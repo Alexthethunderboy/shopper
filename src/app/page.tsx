@@ -7,7 +7,7 @@ import { motion } from 'framer-motion';
 import { Carousel } from '@/components/ui/carousel';
 import { FeaturedSection } from '@/components/sections/featured-section';
 import { products } from '@/data/products';
-import { Button } from '@/components/ui/button';
+import { Button } from '@/components/Button';
 
 const heroImages = [
   { 
