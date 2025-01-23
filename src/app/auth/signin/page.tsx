@@ -7,7 +7,7 @@ import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { Input } from '@/components/ui/input';
 import { toast } from 'sonner';
-import { Button } from '@/components/ui/button';
+import { Button } from "../../../components/ui/button";
 
 export default function SignInPage() {
   const router = useRouter();
