@@ -9,7 +9,7 @@ import {
 import { formatPrice } from '@/lib/utils'
 import { motion } from 'framer-motion'
 import { Product } from '@/types/product'
-import Button from '@/components/ui/button';
+import { Button } from '@/components/ui/button';
 
 interface ProductDetailsProps {
   product: Product
