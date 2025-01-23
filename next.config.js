@@ -12,6 +12,13 @@ const nextConfig = {
     // Don't run type checking during builds (you can still run it manually)
     ignoreBuildErrors: true,
   },
+  webpack: (config) => {
+    config.resolve.alias = {
+      ...config.resolve.alias,
+      '@': `${__dirname}/src`,
+    };
+    return config;
+  },
 }
 
 module.exports = nextConfig 
