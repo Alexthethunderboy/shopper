@@ -2,19 +2,25 @@
 
 import { ShoppingCart } from 'lucide-react';
 import { useCart } from '@/hooks/use-cart';
-import { Button } from '@/components/ui/button';
+import { Button } from '@/components/ui';
 import Link from 'next/link';
 
 export function CartIcon() {
-  const totalItems = useCart((state) => state.totalItems);
+  const { items } = useCart();
+  const itemCount = items.reduce((total, item) => total + item.quantity, 0);
 
   return (
-    <Button variant="ghost" size="icon" asChild className="relative">
+    <Button
+      variant="ghost"
+      size="icon"
+      className="relative"
+      asChild
+    >
       <Link href="/cart">
-        <ShoppingCart className="h-5 w-5" />
-        {totalItems > 0 && (
-          <span className="absolute -top-1 -right-1 h-4 w-4 rounded-full bg-primary text-[10px] font-medium text-primary-foreground flex items-center justify-center">
-            {totalItems}
+        <ShoppingCart className="h-6 w-6" />
+        {itemCount > 0 && (
+          <span className="absolute -right-2 -top-2 h-5 w-5 rounded-full bg-primary text-xs font-medium text-primary-foreground flex items-center justify-center">
+            {itemCount}
           </span>
         )}
       </Link>
