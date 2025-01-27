@@ -4,7 +4,7 @@ import { motion } from 'framer-motion';
 import { ProductCard } from '../product/product-card';
 import { MotionDiv, staggerContainer } from '../animations/motion-div';
 import { Product } from '@/types';
-import { Button } from '@/components/ui/button';
+import { Button } from '@/components/ui';
 import Link from 'next/link';
 
 interface FeaturedProductsProps {
