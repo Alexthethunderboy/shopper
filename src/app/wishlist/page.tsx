@@ -1,11 +1,14 @@
 'use client';
 
-import { useWishlist } from '@/hooks/use-wishlist';
-import { PageContainer } from '@/components/layout/page-container';
-import { ProductCard } from '@/components/product/product-card';
-import { Button } from '@/components/ui/button';
-import { ShoppingBag } from 'lucide-react';
 import Link from 'next/link';
+import Image from 'next/image';
+import { Heart, ShoppingCart, Trash2 } from 'lucide-react';
+import { Button, ScrollArea } from '@/components/ui';
+import { PageContainer } from '@/components/layout/page-container';
+import { useWishlist } from '@/hooks/use-wishlist';
+import { useCart } from '@/hooks/use-cart';
+import { formatPrice } from '@/lib/utils';
+import { ProductCard } from '@/components/product/product-card';
 
 export default function WishlistPage() {
   const { items, clearWishlist } = useWishlist();
@@ -33,7 +36,7 @@ export default function WishlistPage() {
 
         {items.length === 0 ? (
           <div className="flex flex-col items-center justify-center py-12 text-center">
-            <ShoppingBag className="h-12 w-12 text-muted-foreground mb-4" />
+            <ShoppingCart className="h-12 w-12 text-muted-foreground mb-4" />
             <h2 className="text-xl font-semibold mb-2">Your wishlist is empty</h2>
             <p className="text-muted-foreground mb-4">
               Add items to your wishlist to save them for later.

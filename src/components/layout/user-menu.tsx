@@ -4,10 +4,18 @@ import { useState } from 'react';
 import Link from 'next/link';
 import { signOut, useSession } from 'next-auth/react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { LogOut, Settings, User as UserIcon } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from '@/components/ui/dropdown-menu'; // Assuming Shadcn UI has a Dropdown component
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { LogOut, Settings, User } from 'lucide-react';
+import {
+  Button,
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+  Avatar,
+  AvatarFallback,
+  AvatarImage
+} from '@/components/ui';
 
 export function UserMenu() {
   const { data: session } = useSession();
@@ -48,7 +56,7 @@ export function UserMenu() {
         <DropdownMenuSeparator />
         <DropdownMenuItem asChild>
           <Link href="/account" className="cursor-pointer">
-            <UserIcon className="mr-2 h-4 w-4" />
+            <User className="mr-2 h-4 w-4" />
             Account
           </Link>
         </DropdownMenuItem>

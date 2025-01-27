@@ -2,9 +2,9 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { Button } from '@/components/ui/button';
+import { Button } from '@/components/ui';
 import { useToast } from '@/hooks/use-toast';
-import { Loader2, ShoppingCart } from 'lucide-react';
+import { Loader2 } from 'lucide-react';
 import { useCart } from '@/hooks/use-cart';
 import { useSession } from 'next-auth/react';
 

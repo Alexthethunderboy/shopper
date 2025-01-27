@@ -1,12 +1,16 @@
 "use client"
 
+import { useState } from 'react';
+import { motion } from 'framer-motion';
+import { Heart, ShoppingCart } from 'lucide-react';
+import { Button, Separator } from '@/components/ui';
+import { useCart } from '@/hooks/use-cart';
+import { useWishlist } from '@/hooks/use-wishlist';
+import { type Product } from '@/types';
+import { formatPrice } from '@/lib/utils';
 import Image from "next/image"
-import { Minus, Plus, ShoppingCart } from "lucide-react"
+import { Minus, Plus } from "lucide-react"
 import { Card, CardContent } from "@/components/ui/card"
-import { formatPrice } from "@/lib/utils"
-import { motion } from "framer-motion"
-import type { Product } from "@/types"
-import { Button } from "@/components/ui/button"
 
 interface ProductDetailsProps {
   product: Product
