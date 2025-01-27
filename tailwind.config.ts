@@ -9,6 +9,9 @@ const config: Config = {
     darkMode: ["class", "media"],
     theme: {
         extend: {
+            boxShadow: {
+                'soft-lg': '0 10px 25px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -2px rgba(0, 0, 0, 0.02)',
+            },
             colors: {
                 border: "hsl(var(--border))",
                 input: "hsl(var(--input))",
