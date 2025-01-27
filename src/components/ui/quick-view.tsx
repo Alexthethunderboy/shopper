@@ -2,11 +2,11 @@
 
 import { useState } from 'react';
 import Image from 'next/image';
-import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog';
-import { Button } from '@/components/ui/button';
-import { useCart } from '@/hooks/use-cart';
-import { Product } from '@/types';
 import { Eye } from 'lucide-react';
+import { Button, Dialog, DialogContent, DialogTrigger } from '@/components/ui';
+import { useCart } from '@/hooks/use-cart';
+import { type Product } from '@/types';
+import { ProductDetails } from '@/app/product/[slug]/product-details';
 
 interface QuickViewProps {
   product: Product;
