@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { PageContainer } from '@/components/layout/page-container';
-import { Button } from '@/components/ui/button';
+import { Button } from '@/components/ui';
 import { useCart } from '@/hooks/use-cart';
 import { CheckCircle, Loader2 } from 'lucide-react';
 

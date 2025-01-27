@@ -1,15 +1,13 @@
 'use client';
 
+import { Button, ScrollArea, Separator } from '@/components/ui';
 import { PageContainer } from '@/components/layout/page-container';
+import { CheckoutButton } from '@/components/cart/checkout-button';
 import { useCart } from '@/hooks/use-cart';
+import Link from 'next/link';
 import { formatPrice } from '@/lib/utils';
 import Image from 'next/image';
-import Link from 'next/link';
-import { Button } from '@/components/ui/button';
-import { ScrollArea } from '@/components/ui/scroll-area';
-import { Separator } from '@/components/ui/separator';
 import { Minus, Plus, Trash2 } from 'lucide-react';
-import { CheckoutButton } from '@/components/cart/checkout-button';
 
 export default function CartPage() {
   const { items, updateQuantity, removeItem, subtotal } = useCart();

@@ -5,9 +5,8 @@ import { signIn } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
-import { Input } from '@/components/ui/input';
+import { Button, Input } from '@/components/ui';
 import { toast } from 'sonner';
-import { Button } from '@/components/ui/button';
 import { Github } from 'lucide-react';
 
 export default function SignInPage() {
