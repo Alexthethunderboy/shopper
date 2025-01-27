@@ -56,14 +56,14 @@ export function Carousel({
   };
 
   useEffect(() => {
-    if (isPaused) return;
-
-    const timer = setInterval(() => {
-      paginate(1);
+    const interval = setInterval(() => {
+        if (!isPaused) {
+            paginate(1);
+        }
     }, autoplayInterval);
 
-    return () => clearInterval(timer);
-  }, [isPaused, autoplayInterval, page]);
+    return () => clearInterval(interval);
+  }, [isPaused, autoplayInterval, paginate]);
 
   return (
     <div 

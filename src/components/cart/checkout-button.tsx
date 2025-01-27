@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { Button } from '@/components/ui';
 import { useToast } from '@/hooks/use-toast';
-import { Loader2 } from 'lucide-react';
+import { Loader2, ShoppingCart } from 'lucide-react';
 import { useCart } from '@/hooks/use-cart';
 import { useSession } from 'next-auth/react';
 
@@ -73,22 +73,16 @@ export function CheckoutButton() {
 
   return (
     <Button
-      size="lg"
-      className="w-full"
       onClick={handleCheckout}
-      disabled={loading || items.length === 0}
+      disabled={loading || !items.length}
+      className="w-full"
     >
       {loading ? (
-        <>
-          <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-          Processing...
-        </>
+        <Loader2 className="mr-2 h-4 w-4 animate-spin" />
       ) : (
-        <>
-          <ShoppingCart className="mr-2 h-4 w-4" />
-          Checkout
-        </>
+        <ShoppingCart className="mr-2 h-4 w-4" />
       )}
+      Checkout
     </Button>
   );
 } 
