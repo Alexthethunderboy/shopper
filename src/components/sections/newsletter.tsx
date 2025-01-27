@@ -1,8 +1,7 @@
 'use client'
 
 import { motion } from 'framer-motion';
-import { Input } from '@/components/ui/input';
-import { Button } from '@/components/ui/button';
+import { Button, Input } from '@/components/ui';
 import { MotionDiv } from '../animations/motion-div';
 
 export function Newsletter() {

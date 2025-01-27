@@ -4,7 +4,8 @@ import { useState } from 'react';
 import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
-import { Button } from './button';
+import { Button } from '@/components/ui';
+import { cn } from '@/lib/utils';
 
 interface ImageGalleryProps {
   images: string[];

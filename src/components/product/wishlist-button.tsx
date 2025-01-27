@@ -1,10 +1,11 @@
 'use client';
 
-import { Button } from '@/components/ui/button';
-import { useToast } from '@/hooks/use-toast';
+import { useState } from 'react';
 import { Heart } from 'lucide-react';
+import { Button } from '@/components/ui';
+import { useToast } from '@/hooks/use-toast';
 import { useWishlist } from '@/hooks/use-wishlist';
-import { Product } from '@/types';
+import { type Product } from '@/types';
 import { cn } from '@/lib/utils';
 
 interface WishlistButtonProps {
