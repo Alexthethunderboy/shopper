@@ -16,7 +16,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 export function Cart() {
-  const { state, removeItem, updateQuantity } = useCart();
+  const { items, removeItem, updateQuantity, subtotal } = useCart();
 
   return (
     <DropdownMenu>
@@ -28,22 +28,22 @@ export function Cart() {
           aria-label="Shopping Cart"
         >
           <ShoppingCart className="h-5 w-5" />
-          {state.items.length > 0 && (
+          {items.length > 0 && (
             <span className="absolute -right-1 -top-1 flex h-4 w-4 items-center justify-center rounded-full bg-primary text-[10px] text-primary-foreground">
-              {state.items.length}
+              {items.length}
             </span>
           )}
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="w-80">
-        {state.items.length === 0 ? (
+        {items.length === 0 ? (
           <div className="p-4 text-center text-muted-foreground">
             Your cart is empty
           </div>
         ) : (
           <>
             <div className="max-h-96 overflow-auto p-4">
-              {state.items.map((item) => (
+              {items.map((item) => (
                 <div key={item.id} className="flex items-center gap-4 py-4">
                   <div className="relative h-16 w-16 overflow-hidden rounded-md">
                     <Image
@@ -92,7 +92,7 @@ export function Cart() {
             <div className="border-t p-4">
               <div className="flex justify-between text-sm">
                 <span>Subtotal</span>
-                <span className="font-medium">{formatPrice(state.total)}</span>
+                <span className="font-medium">{formatPrice(subtotal)}</span>
               </div>
               <Button asChild className="mt-4 w-full">
                 <Link href="/checkout">
