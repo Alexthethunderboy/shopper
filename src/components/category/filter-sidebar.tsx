@@ -3,20 +3,20 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Filter, X } from 'lucide-react';
-import { Button } from '@/components/ui/button';
 import {
+  Button,
   Sheet,
   SheetContent,
   SheetHeader,
   SheetTitle,
   SheetTrigger,
-} from '@/components/ui/sheet';
-import { Checkbox } from '@/components/ui/checkbox';
-import { Slider } from '@/components/ui/slider';
-import { ScrollArea } from '@/components/ui/scroll-area';
+  Checkbox,
+  Slider,
+  ScrollArea,
+  Badge,
+  Separator
+} from '@/components/ui';
 import type { FilterState } from '@/types';
-import { Badge } from '@/components/ui/badge';
-import { Separator } from '@/components/ui/separator';
 import { cn } from '@/lib/utils';
 
 interface FilterSidebarProps {
