@@ -95,7 +95,7 @@ export function Hero() {
                 size="lg"
               >
                 <Link href="/category/womens-fashion">
-                  Shop Women's Fashion
+                  Shop Women&apos;s Fashion
                 </Link>
               </Button>
               <Button
@@ -105,7 +105,7 @@ export function Hero() {
                 size="lg"
               >
                 <Link href="/category/mens-fashion">
-                  Shop Men's Fashion
+                  Shop Men&apos;s Fashion
                 </Link>
               </Button>
             </motion.div>

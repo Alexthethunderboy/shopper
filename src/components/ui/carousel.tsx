@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
@@ -51,15 +51,15 @@ export function Carousel({
 
   const imageIndex = Math.abs(page % images.length);
 
-  const paginate = (newDirection: number) => {
+  const paginate = useCallback((newDirection: number) => {
     setPage([page + newDirection, newDirection]);
-  };
+  }, [page]);
 
   useEffect(() => {
     const interval = setInterval(() => {
-        if (!isPaused) {
-            paginate(1);
-        }
+      if (!isPaused) {
+        paginate(1);
+      }
     }, autoplayInterval);
 
     return () => clearInterval(interval);
