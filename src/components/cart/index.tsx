@@ -1,14 +1,16 @@
 'use client'
 
 import { ShoppingCart } from 'lucide-react';
-import { Button } from '@/components/ui/button';
 import {
+  Button,
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
+  DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
-import { useCart } from '@/context/cart-context';
+  ScrollArea
+} from '@/components/ui';
+import { useCart } from '@/hooks/use-cart';
 import { formatPrice } from '@/lib/utils';
 import Image from 'next/image';
 import Link from 'next/link';
