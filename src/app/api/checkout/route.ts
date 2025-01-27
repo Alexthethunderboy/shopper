@@ -5,23 +5,32 @@ import Stripe from 'stripe';
 import { CartProduct } from '@/types';
 import { headers } from 'next/headers';
 
-if (!process.env.STRIPE_SECRET_KEY) {
-  throw new Error('Missing Stripe secret key');
-}
-
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
-  apiVersion: '2023-10-16',
-});
+// Initialize Stripe only if secret key is available
+const stripe = process.env.STRIPE_SECRET_KEY
+  ? new Stripe(process.env.STRIPE_SECRET_KEY, {
+      apiVersion: '2023-10-16',
+    })
+  : null;
 
 export async function POST(request: Request) {
   try {
+    if (!stripe) {
+      return NextResponse.json(
+        { error: 'Stripe is not configured' },
+        { status: 503 }
+      );
+    }
+
     const { items, userId } = await request.json();
     const protocol = process.env.NODE_ENV === 'production' ? 'https' : 'http';
-    const headersList = await headers();
-    const host = headersList.get('host');
+    const headersList = headers();
+    const host = process.env.NEXT_PUBLIC_APP_URL || request.headers.get('host') || '';
 
     if (!host) {
-      throw new Error('Missing host header');
+      return NextResponse.json(
+        { error: 'Invalid request' },
+        { status: 400 }
+      );
     }
 
     const baseUrl = `${protocol}://${host}`;
