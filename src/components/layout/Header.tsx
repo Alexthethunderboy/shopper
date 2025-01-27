@@ -2,12 +2,7 @@
 
 import Link from 'next/link';
 import { Menu } from 'lucide-react';
-import { Button } from '@/components/Button';
-import {
-  Sheet,
-  SheetContent,
-  SheetTrigger,
-} from '@/components/ui/sheet';
+import { Button } from '@/components/ui/button';
 import { SearchBar } from '@/components/search/search-bar';
 import { UserMenu } from './user-menu';
 import { Cart } from '@/components/cart';
@@ -18,78 +13,53 @@ const navigation = [
   { name: 'Men', href: '/category/mens-fashion' },
   { name: 'Accessories', href: '/category/accessories' },
   { name: 'Sale', href: '/sale' },
+  { name: 'New Arrivals', href: '/category/new-arrivals' },
 ];
 
-export default function Header() {
+export function Header() {
   return (
-    <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-      <div className="container mx-auto px-4">
-        <div className="flex h-16 items-center justify-between gap-4">
-          {/* Left section: Mobile menu and Logo */}
-          <div className="flex items-center gap-4">
-            <Sheet>
-              <SheetTrigger asChild className="lg:hidden">
-                <Button variant="ghost" size="icon" className="shrink-0">
-                  <Menu className="h-6 w-6" />
-                  <span className="sr-only">Open menu</span>
-                </Button>
-              </SheetTrigger>
-              <SheetContent side="left" className="w-80">
-                <nav className="mt-8 flex flex-col gap-4">
-                  {navigation.map((item) => (
-                    <Link
-                      key={item.name}
-                      href={item.href}
-                      className="text-lg font-medium hover:text-primary transition-colors"
-                    >
-                      {item.name}
-                    </Link>
-                  ))}
-                </nav>
-              </SheetContent>
-            </Sheet>
-            
-            <Link 
-              href="/" 
-              className="text-xl font-bold hover:text-primary transition-colors"
-            >
-              Shopper
-            </Link>
-          </div>
+    <header className="sticky top-0 z-50 w-full border-b bg-background/80 backdrop-blur-sm">
+      <div className="container-custom">
+        <div className="flex h-16 items-center justify-between">
+          {/* Logo */}
+          <Link href="/" className="flex items-center space-x-2">
+            <span className="text-xl font-bold gradient-text">SHOPPER</span>
+          </Link>
 
-          {/* Center section: Desktop Navigation */}
-          <nav className="hidden lg:flex items-center gap-8">
+          {/* Desktop Navigation */}
+          <nav className="hidden md:flex items-center space-x-6">
             {navigation.map((item) => (
               <Link
-                key={item.name}
+                key={item.href}
                 href={item.href}
-                className="text-sm font-medium hover:text-primary transition-colors"
+                className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors"
               >
                 {item.name}
               </Link>
             ))}
           </nav>
 
-          {/* Right section: Actions */}
-          <div className="flex items-center gap-2 sm:gap-4">
-            <div className="hidden sm:block flex-1 min-w-[200px] max-w-xs">
+          {/* Actions */}
+          <div className="flex items-center space-x-4">
+            <div className="hidden md:block">
               <SearchBar />
             </div>
             <ThemeToggle />
-            <Cart />
             <UserMenu />
-            <Button 
-              variant="ghost" 
-              size="icon" 
-              className="sm:hidden"
-              onClick={() => {/* Open search modal */}}
+            <Cart />
+            
+            {/* Mobile Menu Button */}
+            <Button
+              variant="ghost"
+              className="md:hidden"
+              size="icon"
+              aria-label="Open Menu"
             >
-              <span className="sr-only">Search</span>
-              <SearchBar />
+              <Menu className="h-5 w-5" />
             </Button>
           </div>
         </div>
       </div>
     </header>
   );
-} 
+}

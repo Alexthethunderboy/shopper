@@ -1,13 +1,12 @@
+'use server';
+
 import { NextResponse } from 'next/server';
 import Stripe from 'stripe';
-import { CartProduct } from '@/types/product';
+import { CartProduct } from '@/types';
+import { headers } from 'next/headers';
 
 if (!process.env.STRIPE_SECRET_KEY) {
-  throw new Error('STRIPE_SECRET_KEY is not set');
-}
-
-if (!process.env.NEXT_PUBLIC_URL) {
-  throw new Error('NEXT_PUBLIC_URL is not set');
+  throw new Error('Missing Stripe secret key');
 }
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
@@ -16,42 +15,51 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
 
 export async function POST(request: Request) {
   try {
-    const body = await request.json();
-    const { items } = body as { items: CartProduct[] };
+    const { items, userId } = await request.json();
+    const protocol = process.env.NODE_ENV === 'production' ? 'https' : 'http';
+    const headersList = await headers();
+    const host = headersList.get('host');
 
-    if (!Array.isArray(items)) {
+    if (!host) {
+      throw new Error('Missing host header');
+    }
+
+    const baseUrl = `${protocol}://${host}`;
+
+    if (!items?.length) {
       return NextResponse.json(
-        { error: 'Invalid items format' },
+        { error: 'Missing required fields' },
         { status: 400 }
       );
     }
 
-    const lineItems = items.map((item) => ({
-      price_data: {
-        currency: 'usd',
-        product_data: {
-          name: item.name,
-          images: [item.image],
-          description: item.description,
-        },
-        unit_amount: Math.round(item.price * 100),
-      },
-      quantity: item.quantity,
-    }));
-
     const session = await stripe.checkout.sessions.create({
-      payment_method_types: ['card'],
-      line_items: lineItems,
       mode: 'payment',
-      success_url: `${process.env.NEXT_PUBLIC_URL}/checkout/success?session_id={CHECKOUT_SESSION_ID}`,
-      cancel_url: `${process.env.NEXT_PUBLIC_URL}/cart`,
+      payment_method_types: ['card'],
+      line_items: items.map((item: CartProduct) => ({
+        price_data: {
+          currency: 'usd',
+          product_data: {
+            name: item.name,
+            description: item.description,
+            images: [item.image],
+          },
+          unit_amount: Math.round(item.price * 100), // Convert to cents
+        },
+        quantity: item.quantity,
+      })),
+      success_url: `${baseUrl}/checkout/success?session_id={CHECKOUT_SESSION_ID}`,
+      cancel_url: `${baseUrl}/cart`,
+      metadata: {
+        userId: userId || 'guest',
+      },
     });
 
-    return NextResponse.json({ sessionId: session.id });
+    return NextResponse.json({ url: session.url });
   } catch (error) {
-    console.error('Error creating checkout session:', error);
+    console.error('Checkout error:', error);
     return NextResponse.json(
-      { error: 'Error creating checkout session' },
+      { error: 'Internal server error' },
       { status: 500 }
     );
   }

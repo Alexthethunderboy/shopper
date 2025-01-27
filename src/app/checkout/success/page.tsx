@@ -1,38 +1,71 @@
 'use client';
 
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import Link from 'next/link';
-import { CheckCircle } from 'lucide-react';
-import { Button } from '@/components/Button';
-import { useCart } from '@/lib/store/cart';
-import { ScrollAnimation } from '@/components/ui/scroll-animation';
+import { useRouter, useSearchParams } from 'next/navigation';
+import { PageContainer } from '@/components/layout/page-container';
+import { Button } from '@/components/ui/button';
+import { useCart } from '@/hooks/use-cart';
+import { CheckCircle, Loader2 } from 'lucide-react';
 
 export default function CheckoutSuccessPage() {
-  const clearCart = useCart((state) => state.clearCart);
+  const [loading, setLoading] = useState(true);
+  const searchParams = useSearchParams();
+  const router = useRouter();
+  const { clearCart } = useCart();
+  const sessionId = searchParams.get('session_id');
 
   useEffect(() => {
-    clearCart();
-  }, [clearCart]);
+    if (!sessionId) {
+      router.replace('/cart');
+      return;
+    }
+
+    const handleSuccess = async () => {
+      try {
+        // Here you could verify the session with Stripe if needed
+        clearCart();
+      } catch (error) {
+        console.error('Error handling success:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    handleSuccess();
+  }, [sessionId, clearCart, router]);
+
+  if (loading) {
+    return (
+      <PageContainer>
+        <div className="flex flex-col items-center justify-center min-h-[60vh]">
+          <Loader2 className="h-8 w-8 animate-spin text-primary" />
+          <p className="mt-4 text-muted-foreground">Processing your order...</p>
+        </div>
+      </PageContainer>
+    );
+  }
 
   return (
-    <main className="flex-1">
-      <div className="container py-32">
-        <ScrollAnimation className="max-w-md mx-auto text-center">
-          <CheckCircle className="w-16 h-16 text-success mx-auto mb-6" />
-          <h1 className="text-3xl font-bold mb-4">Thank you for your order!</h1>
-          <p className="text-muted-foreground mb-8">
-            We'll send you a confirmation email with your order details shortly.
-          </p>
-          <div className="space-x-4">
-            <Button asChild>
-              <Link href="/products">Continue Shopping</Link>
-            </Button>
-            <Button variant="outline" asChild>
-              <Link href="/account/orders">View Orders</Link>
-            </Button>
-          </div>
-        </ScrollAnimation>
+    <PageContainer>
+      <div className="flex flex-col items-center justify-center min-h-[60vh] text-center">
+        <div className="rounded-full bg-green-100 p-3 mb-4">
+          <CheckCircle className="w-8 h-8 text-green-600" />
+        </div>
+        <h1 className="text-4xl font-bold mb-4">Thank you for your order!</h1>
+        <p className="text-muted-foreground mb-8 max-w-md">
+          We appreciate your business! If you have any questions, please email us at
+          orders@example.com
+        </p>
+        <div className="flex gap-4">
+          <Button asChild>
+            <Link href="/products">Continue Shopping</Link>
+          </Button>
+          <Button variant="outline" asChild>
+            <Link href="/">Return Home</Link>
+          </Button>
+        </div>
       </div>
-    </main>
+    </PageContainer>
   );
 } 

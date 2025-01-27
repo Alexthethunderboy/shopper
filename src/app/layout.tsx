@@ -1,11 +1,9 @@
-import { Inter } from 'next/font/google';
-import { Toaster } from 'sonner';
-import { CartProvider } from '@/components/providers/cart-provider';
-import Header from '@/components/layout/Header';
-import Footer from '@/components/layout/Footer';
 import './globals.css';
-import { ThemeProvider } from 'next-themes';
-import { AuthProvider } from '@/components/providers/auth-provider';
+import { Inter } from 'next/font/google';
+import { Providers } from '@/components/providers/providers';
+import { cn } from '@/lib/utils';
+import { Header } from '@/components/layout/Header';
+import { Footer } from '@/components/layout/Footer';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -21,24 +19,12 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={inter.className}>
-        <AuthProvider>
-          <ThemeProvider
-            attribute="class"
-            defaultTheme="system"
-            enableSystem
-            disableTransitionOnChange
-          >
-            <CartProvider>
-              <div className="relative flex min-h-screen flex-col">
-                <Header />
-                <main className="flex-1">{children}</main>
-                <Footer />
-              </div>
-              <Toaster />
-            </CartProvider>
-          </ThemeProvider>
-        </AuthProvider>
+      <body className={cn("font-sans antialiased", inter.className)} suppressHydrationWarning>
+        <Providers>
+          <Header />
+          {children}
+          <Footer />
+        </Providers>
       </body>
     </html>
   );

@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Filter, X } from 'lucide-react';
-import { Button } from '@/components/Button';
+import { Button } from '@/components/ui/button';
 import {
   Sheet,
   SheetContent,
@@ -14,7 +14,7 @@ import {
 import { Checkbox } from '@/components/ui/checkbox';
 import { Slider } from '@/components/ui/slider';
 import { ScrollArea } from '@/components/ui/scroll-area';
-import type { FilterState } from '@/lib/types/product';
+import type { FilterState } from '@/types';
 import { Badge } from '@/components/ui/badge';
 import { Separator } from '@/components/ui/separator';
 import { cn } from '@/lib/utils';
@@ -51,9 +51,9 @@ export function FilterSidebar({
   const [localFilters, setLocalFilters] = useState(filters);
 
   const activeFiltersCount = 
-    (filters.sizes?.length || 0) + 
-    (filters.colors?.length || 0) + 
-    (filters.tags?.length || 0);
+    filters.sizes.length + 
+    filters.colors.length + 
+    filters.tags.length;
 
   function handleFilterChange(newFilters: Partial<FilterState>) {
     const updated = { ...localFilters, ...newFilters };
@@ -66,7 +66,7 @@ export function FilterSidebar({
   }
 
   function handleClearFilters() {
-    const cleared = {
+    const cleared: FilterState = {
       priceRange: availableFilters.priceRange,
       sizes: [],
       colors: [],
@@ -112,7 +112,7 @@ export function FilterSidebar({
               <div>
                 <h3 className="font-medium mb-4">Price Range</h3>
                 <Slider
-                  defaultValue={localFilters.priceRange}
+                  value={localFilters.priceRange}
                   min={availableFilters.priceRange[0]}
                   max={availableFilters.priceRange[1]}
                   step={10}
@@ -121,8 +121,8 @@ export function FilterSidebar({
                   }
                 />
                 <div className="flex justify-between mt-2 text-sm text-muted-foreground">
-                  <span>${localFilters.priceRange?.[0]}</span>
-                  <span>${localFilters.priceRange?.[1]}</span>
+                  <span>${localFilters.priceRange[0]}</span>
+                  <span>${localFilters.priceRange[1]}</span>
                 </div>
               </div>
 
@@ -136,21 +136,21 @@ export function FilterSidebar({
                     <button
                       key={color}
                       onClick={() => {
-                        const colors = localFilters.colors?.includes(color)
+                        const colors = localFilters.colors.includes(color)
                           ? localFilters.colors.filter((c) => c !== color)
-                          : [...(localFilters.colors || []), color];
+                          : [...localFilters.colors, color];
                         handleFilterChange({ colors });
                       }}
                       className={cn(
                         "flex flex-col items-center gap-1.5 p-2 rounded-md transition-colors",
-                        localFilters.colors?.includes(color) && "bg-accent"
+                        localFilters.colors.includes(color) && "bg-accent"
                       )}
                     >
                       <span
                         className={cn(
                           "w-6 h-6 rounded-full ring-2 ring-offset-2",
                           colorMap[color],
-                          localFilters.colors?.includes(color) && "ring-primary"
+                          localFilters.colors.includes(color) && "ring-primary"
                         )}
                       />
                       <span className="text-xs">{color}</span>
@@ -169,14 +169,14 @@ export function FilterSidebar({
                     <button
                       key={size}
                       onClick={() => {
-                        const sizes = localFilters.sizes?.includes(size)
+                        const sizes = localFilters.sizes.includes(size)
                           ? localFilters.sizes.filter((s) => s !== size)
-                          : [...(localFilters.sizes || []), size];
+                          : [...localFilters.sizes, size];
                         handleFilterChange({ sizes });
                       }}
                       className={cn(
                         "h-10 border rounded-md text-sm transition-colors hover:bg-accent",
-                        localFilters.sizes?.includes(size)
+                        localFilters.sizes.includes(size)
                           ? "bg-primary text-primary-foreground border-primary"
                           : "border-input"
                       )}
@@ -196,12 +196,12 @@ export function FilterSidebar({
                   {availableFilters.tags.map((tag) => (
                     <Badge
                       key={tag}
-                      variant={localFilters.tags?.includes(tag) ? "default" : "outline"}
+                      variant={localFilters.tags.includes(tag) ? "default" : "outline"}
                       className="cursor-pointer"
                       onClick={() => {
-                        const tags = localFilters.tags?.includes(tag)
+                        const tags = localFilters.tags.includes(tag)
                           ? localFilters.tags.filter((t) => t !== tag)
-                          : [...(localFilters.tags || []), tag];
+                          : [...localFilters.tags, tag];
                         handleFilterChange({ tags });
                       }}
                     >
@@ -249,8 +249,8 @@ export function FilterSidebar({
               }
             />
             <div className="flex justify-between mt-2 text-sm text-muted-foreground">
-              <span>${localFilters.priceRange?.[0]}</span>
-              <span>${localFilters.priceRange?.[1]}</span>
+              <span>${localFilters.priceRange[0]}</span>
+              <span>${localFilters.priceRange[1]}</span>
             </div>
           </div>
 
@@ -264,22 +264,21 @@ export function FilterSidebar({
                 <button
                   key={color}
                   onClick={() => {
-                    const colors = localFilters.colors?.includes(color)
+                    const colors = localFilters.colors.includes(color)
                       ? localFilters.colors.filter((c) => c !== color)
-                      : [...(localFilters.colors || []), color];
+                      : [...localFilters.colors, color];
                     handleFilterChange({ colors });
-                    onFilterChange({ ...localFilters, colors });
                   }}
                   className={cn(
                     "flex flex-col items-center gap-1.5 p-2 rounded-md transition-colors",
-                    localFilters.colors?.includes(color) && "bg-accent"
+                    localFilters.colors.includes(color) && "bg-accent"
                   )}
                 >
                   <span
                     className={cn(
                       "w-6 h-6 rounded-full ring-2 ring-offset-2",
                       colorMap[color],
-                      localFilters.colors?.includes(color) && "ring-primary"
+                      localFilters.colors.includes(color) && "ring-primary"
                     )}
                   />
                   <span className="text-xs">{color}</span>
@@ -298,15 +297,14 @@ export function FilterSidebar({
                 <button
                   key={size}
                   onClick={() => {
-                    const sizes = localFilters.sizes?.includes(size)
+                    const sizes = localFilters.sizes.includes(size)
                       ? localFilters.sizes.filter((s) => s !== size)
-                      : [...(localFilters.sizes || []), size];
+                      : [...localFilters.sizes, size];
                     handleFilterChange({ sizes });
-                    onFilterChange({ ...localFilters, sizes });
                   }}
                   className={cn(
                     "h-10 border rounded-md text-sm transition-colors hover:bg-accent",
-                    localFilters.sizes?.includes(size)
+                    localFilters.sizes.includes(size)
                       ? "bg-primary text-primary-foreground border-primary"
                       : "border-input"
                   )}
@@ -326,14 +324,13 @@ export function FilterSidebar({
               {availableFilters.tags.map((tag) => (
                 <Badge
                   key={tag}
-                  variant={localFilters.tags?.includes(tag) ? "default" : "outline"}
+                  variant={localFilters.tags.includes(tag) ? "default" : "outline"}
                   className="cursor-pointer"
                   onClick={() => {
-                    const tags = localFilters.tags?.includes(tag)
+                    const tags = localFilters.tags.includes(tag)
                       ? localFilters.tags.filter((t) => t !== tag)
-                      : [...(localFilters.tags || []), tag];
+                      : [...localFilters.tags, tag];
                     handleFilterChange({ tags });
-                    onFilterChange({ ...localFilters, tags });
                   }}
                 >
                   {tag}

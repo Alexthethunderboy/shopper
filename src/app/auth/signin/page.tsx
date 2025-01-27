@@ -7,7 +7,8 @@ import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { Input } from '@/components/ui/input';
 import { toast } from 'sonner';
-import { Button } from '@/components/Button';
+import { Button } from '@/components/ui/button';
+import { Github } from 'lucide-react';
 
 export default function SignInPage() {
   const router = useRouter();
@@ -78,7 +79,7 @@ export default function SignInPage() {
             className="w-full"
             disabled={isLoading}
           >
-            {isLoading ? 'Signing in...' : 'Sign in'}
+            {isLoading ? "Signing in..." : "Sign in"}
           </Button>
         </form>
 
@@ -96,7 +97,7 @@ export default function SignInPage() {
         <Button
           variant="outline"
           className="w-full"
-          onClick={() => signIn('google')}
+          onClick={() => signIn("google")}
         >
           <svg className="mr-2 h-4 w-4" viewBox="0 0 24 24">
             {/* Google icon SVG */}
@@ -105,7 +106,7 @@ export default function SignInPage() {
         </Button>
 
         <p className="text-center text-sm text-muted-foreground">
-          Don't have an account?{' '}
+          Don&apos;t have an account?{" "}
           <Link
             href="/auth/signup"
             className="text-primary hover:underline"

@@ -3,23 +3,23 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ShoppingCart, X, Plus, Minus, Trash2 } from 'lucide-react';
-import { Button } from '@/components/Button';
-import { useCart } from '@/hooks/use-cart';
+import { Button } from '@/components/ui/button';
+import { useCart } from '@/context/cart-context';
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
 import Image from 'next/image';
 
 export function Cart() {
   const [isOpen, setIsOpen] = useState(false);
-  const { items, updateItemQuantity, removeItem, cartTotal } = useCart();
+  const { state, removeItem, updateQuantity } = useCart();
 
   return (
     <Sheet open={isOpen} onOpenChange={setIsOpen}>
       <SheetTrigger asChild>
         <Button variant="ghost" size="icon" className="relative">
           <ShoppingCart className="h-6 w-6" />
-          {items.length > 0 && (
+          {state.items.length > 0 && (
             <span className="absolute -top-1 -right-1 bg-primary text-primary-foreground w-5 h-5 rounded-full text-xs flex items-center justify-center">
-              {items.length}
+              {state.items.length}
             </span>
           )}
         </Button>
@@ -31,7 +31,7 @@ export function Cart() {
         <div className="mt-8 flex flex-col h-[calc(100vh-10rem)]">
           <div className="flex-1 overflow-y-auto">
             <AnimatePresence initial={false}>
-              {items.length === 0 ? (
+              {state.items.length === 0 ? (
                 <div className="flex flex-col items-center justify-center h-full text-center">
                   <ShoppingCart className="h-12 w-12 text-muted-foreground mb-4" />
                   <p className="text-lg font-medium mb-2">Your cart is empty</p>
@@ -40,7 +40,7 @@ export function Cart() {
                   </p>
                 </div>
               ) : (
-                items.map((item) => (
+                state.items.map((item) => (
                   <motion.div
                     key={item.id}
                     layout
@@ -68,18 +68,18 @@ export function Cart() {
                           size="icon"
                           className="h-8 w-8"
                           onClick={() => 
-                            updateItemQuantity(item.id, (item.quantity || 1) - 1)
+                            updateQuantity(item.id, Math.max(0, item.quantity - 1))
                           }
                         >
                           <Minus className="h-4 w-4" />
                         </Button>
-                        <span className="w-8 text-center">{item.quantity || 1}</span>
+                        <span className="w-8 text-center">{item.quantity}</span>
                         <Button
                           variant="outline"
                           size="icon"
                           className="h-8 w-8"
                           onClick={() => 
-                            updateItemQuantity(item.id, (item.quantity || 1) + 1)
+                            updateQuantity(item.id, item.quantity + 1)
                           }
                         >
                           <Plus className="h-4 w-4" />
@@ -99,11 +99,11 @@ export function Cart() {
               )}
             </AnimatePresence>
           </div>
-          {items.length > 0 && (
+          {state.items.length > 0 && (
             <div className="border-t pt-4 space-y-4">
               <div className="flex justify-between text-lg font-medium">
                 <span>Total</span>
-                <span>${cartTotal.toFixed(2)}</span>
+                <span>${state.total.toFixed(2)}</span>
               </div>
               <Button className="w-full" size="lg">
                 Checkout

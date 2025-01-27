@@ -1,109 +1,118 @@
-import { Product } from '@/types/product';
+import { Product, Category } from '@/types';
+import { generateSlug } from '@/lib/utils';
 
 export const products: Product[] = [
   {
     id: '1',
-    name: 'Classic White Sneakers',
-    slug: 'classic-white-sneakers',
-    price: 89.99,
-    image: '/images/products/sneakers-1.jpg',
-    category: 'Men',
-    description: 'Minimalist design meets maximum comfort in these versatile white sneakers.'
+    name: 'Classic White T-Shirt',
+    slug: generateSlug('Classic White T-Shirt'),
+    price: 29.99,
+    image: '/images/products/shirt-1.jpg',
+    category: 'Women',
+    sizes: ['XS', 'S', 'M', 'L', 'XL'],
+    colors: ['White', 'Black', 'Gray'],
+    tags: ['Basics', 'Trending'],
+    description: 'A timeless classic white t-shirt made from premium cotton.'
   },
   {
     id: '2',
     name: 'Leather Crossbody Bag',
-    slug: 'leather-crossbody-bag',
-    price: 129.99,
+    slug: generateSlug('Leather Crossbody Bag'),
+    price: 89.99,
     image: '/images/products/bag-1.jpg',
     category: 'Accessories',
-    description: 'Elegant leather crossbody bag with adjustable strap and multiple compartments.'
+    colors: ['Black', 'Brown', 'Tan'],
+    tags: ['New', 'Trending'],
+    description: 'Elegant leather crossbody bag with adjustable strap.'
   },
   {
     id: '3',
-    name: 'Floral Summer Dress',
-    slug: 'floral-summer-dress',
+    name: 'Denim Jacket',
+    slug: generateSlug('Denim Jacket'),
     price: 79.99,
-    image: '/images/products/dress-1.jpg',
-    category: 'Women',
-    description: 'Light and breezy floral dress perfect for summer days.'
+    image: '/images/products/jacket-1.jpg',
+    category: 'Men',
+    sizes: ['S', 'M', 'L', 'XL'],
+    colors: ['Blue', 'Black'],
+    tags: ['Sale', 'Trending'],
+    description: 'Classic denim jacket with modern details.'
   },
   {
     id: '4',
-    name: 'Denim Jacket',
-    slug: 'denim-jacket',
+    name: 'Running Sneakers',
+    slug: generateSlug('Running Sneakers'),
     price: 119.99,
-    image: '/images/products/jacket-1.jpg',
+    image: '/images/products/sneakers-1.jpg',
     category: 'Men',
-    description: 'Classic denim jacket with a modern fit and vintage wash.'
+    sizes: ['7', '8', '9', '10', '11'],
+    colors: ['White', 'Black', 'Gray'],
+    tags: ['New', 'Sport'],
+    description: 'Comfortable running sneakers with advanced cushioning.'
   },
   {
     id: '5',
-    name: 'Gold Hoop Earrings',
-    slug: 'gold-hoop-earrings',
-    price: 49.99,
-    image: '/images/products/earrings-1.jpg',
-    category: 'Accessories',
-    description: 'Timeless gold-plated hoop earrings with secure closure.'
+    name: 'Summer Dress',
+    slug: generateSlug('Summer Dress'),
+    price: 59.99,
+    image: '/images/products/dress-1.jpg',
+    category: 'Women',
+    sizes: ['XS', 'S', 'M', 'L'],
+    colors: ['Blue', 'Pink', 'Yellow'],
+    tags: ['Summer', 'Sale'],
+    description: 'Light and breezy summer dress perfect for warm days.'
   },
   {
     id: '6',
-    name: 'Silk Blouse',
-    slug: 'silk-blouse',
-    price: 89.99,
-    image: '/images/products/blouse-1.jpg',
-    category: 'Women',
-    description: 'Luxurious silk blouse with elegant drape and classic collar.'
+    name: 'Sunglasses',
+    slug: generateSlug('Sunglasses'),
+    price: 149.99,
+    image: '/images/products/sunglasses-1.jpg',
+    category: 'Accessories',
+    colors: ['Black', 'Gold'],
+    tags: ['Luxury', 'New'],
+    description: 'Designer sunglasses with UV protection.'
   },
   {
     id: '7',
     name: 'Leather Wallet',
-    slug: 'leather-wallet',
-    price: 59.99,
+    slug: generateSlug('Leather Wallet'),
+    price: 49.99,
     image: '/images/products/wallet-1.jpg',
     category: 'Accessories',
-    description: 'Genuine leather wallet with RFID protection and multiple card slots.'
+    colors: ['Brown', 'Black'],
+    tags: ['Basics'],
+    description: 'Genuine leather wallet with multiple card slots.'
   },
   {
     id: '8',
-    name: 'Casual Linen Shirt',
-    slug: 'casual-linen-shirt',
-    price: 69.99,
-    image: '/images/products/shirt-1.jpg',
-    category: 'Men',
-    description: 'Breathable linen shirt perfect for casual occasions.'
+    name: 'Smart Watch',
+    slug: generateSlug('Smart Watch'),
+    price: 299.99,
+    image: '/images/products/watch-1.jpg',
+    category: 'Accessories',
+    colors: ['Black', 'Silver'],
+    tags: ['Tech', 'Trending'],
+    description: 'Smart watch with fitness tracking and notifications.'
   }
 ];
 
-export const categories = [
+export const categories: Category[] = [
   {
+    id: '1',
     name: 'Women',
     image: '/images/categories/women.jpg',
-    href: '/category/women',
-    description: 'Discover the latest trends in women\'s fashion'
+    itemCount: products.filter(p => p.category === 'Women').length
   },
   {
+    id: '2',
     name: 'Men',
     image: '/images/categories/men.jpg',
-    href: '/category/men',
-    description: 'Explore our collection of men\'s clothing'
+    itemCount: products.filter(p => p.category === 'Men').length
   },
   {
+    id: '3',
     name: 'Accessories',
     image: '/images/categories/accessories.jpg',
-    href: '/category/accessories',
-    description: 'Complete your look with our premium accessories'
+    itemCount: products.filter(p => p.category === 'Accessories').length
   }
-];
-
-export const featuredProducts = [
-  {
-    id: 1,
-    name: "Classic White Sneakers",
-    slug: "classic-white-sneakers",
-    price: 89.99,
-    image: "/product-sneakers.jpg",
-    description: "Comfortable and stylish sneakers perfect for everyday wear."
-  },
-  // ... existing product data ...
-] as const; 
+]; 

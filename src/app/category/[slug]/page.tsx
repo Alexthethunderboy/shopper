@@ -1,38 +1,42 @@
-import { Suspense } from 'react';
-import { Metadata } from 'next';
-import CategoryContent from './category-content';
-import type { Product } from '@/lib/types/product';
+import type { Metadata } from "next"
+import { CategoryPage } from "./category-page"
 
-// This would come from your API/database
-const mockProducts: Product[] = [
-  // ... your product data
-];
-
-type Props = {
-  params: { slug: string };
-  searchParams: Record<string, string | string[] | undefined>;
-};
-
-export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  return {
-    title: `${params.slug.replace('-', ' ')} | Your Store Name`,
-    description: `Browse our collection of ${params.slug.replace('-', ' ')} products.`,
-  };
+// Category mapping for metadata
+const categoryMapping: Record<string, string> = {
+  "womens-fashion": "Women",
+  "mens-fashion": "Men",
+  accessories: "Accessories",
 }
 
-export default function CategoryPage(props: Props) {
-  const { params, searchParams } = props;
+const descriptions: Record<string, string> = {
+  "womens-fashion": "Discover our latest collection of women's clothing and accessories.",
+  "mens-fashion": "Explore our curated collection of men's clothing and accessories.",
+  accessories: "Complete your look with our stylish collection of accessories.",
+}
 
-  return (
-    <main className="flex-1">
-      <div className="container py-8">
-        <h1 className="text-3xl font-bold capitalize mb-8">
-          {params.slug.replace('-', ' ')}
-        </h1>
-        <Suspense fallback={<div>Loading...</div>}>
-          <CategoryContent slug={params.slug} products={mockProducts} />
-        </Suspense>
-      </div>
-    </main>
-  );
-} 
+interface PageProps {
+  params: Promise<{ slug: string }>
+  searchParams?: Promise<any>
+}
+
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+  const { slug } = await params
+  const category = categoryMapping[slug]
+
+  return {
+    title: `${category || "Category"} | Shopper`,
+    description: descriptions[slug] || "Explore our collection of products.",
+  }
+}
+
+export default async function Page({ params }: PageProps) {
+  const { slug } = await params
+  return <CategoryPage slug={slug} />
+}
+
+export function generateStaticParams() {
+  return Object.keys(categoryMapping).map((slug) => ({
+    slug,
+  }))
+}
+

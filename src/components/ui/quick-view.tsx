@@ -2,69 +2,67 @@
 
 import { useState } from 'react';
 import Image from 'next/image';
-import { Modal } from './modal';
-import { Button } from './button';
-import { formatPrice } from '@/lib/utils';
-import { ShoppingCart } from 'lucide-react';
-import { useCart } from '@/lib/store/cart';
+import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog';
+import { Button } from '@/components/ui/button';
+import { useCart } from '@/hooks/use-cart';
+import { Product } from '@/types';
+import { Eye } from 'lucide-react';
 
 interface QuickViewProps {
-  product: {
-    id: number;
-    name: string;
-    price: number;
-    image: string;
-  };
+  product: Product;
 }
 
 export function QuickView({ product }: QuickViewProps) {
   const [isOpen, setIsOpen] = useState(false);
-  const addToCart = useCart((state) => state.addItem);
+  const { addItem } = useCart();
 
   return (
-    <>
-      <Button 
-        variant="secondary" 
-        onClick={(e) => {
-          e.preventDefault();
-          setIsOpen(true);
-        }}
-      >
-        Quick View
-      </Button>
-
-      <Modal
-        isOpen={isOpen}
-        onClose={() => setIsOpen(false)}
-        title="Quick View"
-      >
+    <Dialog open={isOpen} onOpenChange={setIsOpen}>
+      <DialogTrigger asChild>
+        <Button
+          variant="ghost"
+          size="icon"
+          className="group"
+          aria-label="Quick view"
+        >
+          <Eye className="h-5 w-5 transition-colors group-hover:text-primary" />
+        </Button>
+      </DialogTrigger>
+      <DialogContent className="sm:max-w-[425px]">
         <div className="grid gap-4">
-          <div className="relative aspect-square rounded-lg overflow-hidden">
+          <div className="aspect-square relative">
             <Image
               src={product.image}
               alt={product.name}
               fill
-              className="object-cover"
+              className="object-cover rounded-lg"
             />
           </div>
-          <div>
-            <h3 className="text-lg font-semibold">{product.name}</h3>
-            <p className="text-lg font-bold text-primary mt-2">
-              {formatPrice(product.price)}
+          <div className="grid gap-2">
+            <h3 className="font-semibold text-lg">{product.name}</h3>
+            <p className="text-sm text-muted-foreground line-clamp-3">
+              {product.description}
             </p>
+            <div className="flex items-center justify-between">
+              <p className="font-semibold">${product.price.toFixed(2)}</p>
+              {product.stock !== undefined && (
+                <p className="text-sm text-muted-foreground">
+                  {product.stock} in stock
+                </p>
+              )}
+            </div>
           </div>
-          <Button 
+          <Button
             className="w-full"
             onClick={() => {
-              addToCart(product);
+              addItem({ ...product, quantity: 1 });
               setIsOpen(false);
             }}
           >
-            <ShoppingCart className="mr-2" />
             Add to Cart
           </Button>
         </div>
-      </Modal>
-    </>
+      </DialogContent>
+    </Dialog>
   );
 } 

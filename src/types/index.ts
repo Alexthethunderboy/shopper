@@ -1,5 +1,5 @@
 export interface Product {
-  id: string | number;
+  id: string;
   name: string;
   slug: string;
   description: string;
@@ -21,14 +21,20 @@ export interface ProductVariant {
 }
 
 export interface FilterState {
-  category?: string;
-  priceRange?: [number, number];
-  sizes?: string[];
-  colors?: string[];
-  tags?: string[];
+  priceRange: [number, number];
+  sizes: string[];
+  colors: string[];
+  tags: string[];
   sort?: 'price-asc' | 'price-desc' | 'newest';
 }
 
 export type CartProduct = Product & {
   quantity: number;
-}; 
+};
+
+export interface Category {
+  id: string;
+  name: string;
+  image: string;
+  itemCount: number;
+} 

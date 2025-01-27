@@ -6,4 +6,5 @@ export default function ProductLoading() {
       <LoadingSpinner size="lg" />
     </div>
   )
-} 
+}
+

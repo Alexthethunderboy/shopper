@@ -1,20 +1,15 @@
-import Link from 'next/link'
-import { Button } from '@/components/Button'
+import Link from "next/link"
+import { Button } from "@/components/ui/button"
 
 export default function ProductNotFound() {
   return (
-    <main className="flex-1">
-      <div className="container py-32 text-center">
-        <h1 className="text-4xl font-bold mb-4">Product Not Found</h1>
-        <p className="text-muted-foreground mb-8">
-          Sorry, we couldn't find the product you're looking for.
-        </p>
-        <Button asChild>
-          <Link href="/">
-            Return Home
-          </Link>
-        </Button>
-      </div>
-    </main>
+    <div className="flex min-h-[400px] flex-col items-center justify-center text-center">
+      <h2 className="mb-2 text-2xl font-bold">Product Not Found</h2>
+      <p className="mb-8 text-muted-foreground">The product you are looking for does not exist.</p>
+      <Button asChild>
+        <Link href="/products">View All Products</Link>
+      </Button>
+    </div>
   )
-} 
+}
+
