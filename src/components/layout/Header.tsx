@@ -2,11 +2,10 @@
 
 import Link from 'next/link';
 import { Menu } from 'lucide-react';
-import { Button } from '@/components/ui/button';
+import { Button, ThemeToggle } from '@/components/ui';
 import { SearchBar } from '@/components/search/search-bar';
-import { UserMenu } from './user-menu';
+import { UserMenu } from '@/components/layout/user-menu';
 import { Cart } from '@/components/cart';
-import { ThemeToggle } from '@/components/ui/theme-toggle';
 
 const navigation = [
   { name: 'Women', href: '/category/womens-fashion' },

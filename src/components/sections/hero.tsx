@@ -2,8 +2,7 @@
 
 import Link from 'next/link';
 import { motion } from 'framer-motion';
-import { Button } from '@/components/ui/button';
-import { Carousel } from '@/components/ui/carousel';
+import { Button, Carousel } from '@/components/ui';
 import { useEffect, useState } from 'react';
 
 const heroImages = [

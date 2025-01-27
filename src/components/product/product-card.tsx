@@ -3,15 +3,13 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { ShoppingCart, Heart, Eye } from 'lucide-react';
-import { Card } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { QuickView } from '@/components/ui/quick-view';
+import { Button, Card, CardContent, CardFooter, QuickView } from '@/components/ui';
 import { Product } from '@/types';
 import { useState } from 'react';
 import { useToast } from '@/hooks/use-toast';
 import { useCart } from '@/hooks/use-cart';
 import { WishlistButton } from './wishlist-button';
-import { cn } from '@/lib/utils';
+import { cn, formatPrice } from '@/lib/utils';
 
 interface ProductCardProps {
   product: Product;
