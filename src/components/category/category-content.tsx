@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { ProductCard } from '@/components/product/product-card';
-import { ScrollAnimation } from '@/components/ui/scroll-animation';
+import { ScrollAnimation } from '@/components/ui';
 import { SortDropdown } from '@/components/category/sort-dropdown';
 import { FilterSidebar } from '@/components/category/filter-sidebar';
 import { ProductGrid } from '@/components/product/product-grid';

@@ -2,10 +2,11 @@
 
 import { motion } from 'framer-motion';
 import { ProductCard } from '@/components/product/product-card';
-import { ScrollAnimation } from '@/components/ui/scroll-animation';
+import { ScrollAnimation } from '@/components/ui';
 import { SortDropdown } from '@/components/category/sort-dropdown';
 import { PageContainer } from '@/components/layout/page-container';
 import { useState } from 'react';
+import { type Product } from '@/types';
 import { products } from '@/data/products';
 
 // Get the latest products (for demo, we'll take the last 8 products)

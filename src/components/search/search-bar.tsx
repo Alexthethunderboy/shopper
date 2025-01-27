@@ -3,18 +3,20 @@
 import { useState, useEffect } from 'react';
 import { Search } from 'lucide-react';
 import { useDebounce } from 'use-debounce';
-import { Input } from '@/components/ui/input';
+import { Input } from '@/components/ui';
 import {
+  Command,
   CommandDialog,
   CommandEmpty,
   CommandGroup,
   CommandInput,
   CommandItem,
-  CommandList,
+  CommandList
 } from '@/components/ui/command';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import { type Product } from '@/types';
+import { useProducts } from '@/hooks/use-products';
 
 type SearchResult = Pick<Product, 'id' | 'name' | 'price' | 'image' | 'category' | 'slug'>;
 
